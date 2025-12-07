@@ -29,3 +29,9 @@ TEST_F(AlgorithmsTest, InsertionSort) {
   EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
   // std::print("{}", input);
 }
+
+TEST_F(AlgorithmsTest, insertionSortDecreasing) {
+  DSA::insertionSortDecreasing(input.begin(), input.end());
+  EXPECT_TRUE(std::is_sorted(input.begin(), input.end(), std::greater<>()));
+  // std::print("{}", input);
+}
