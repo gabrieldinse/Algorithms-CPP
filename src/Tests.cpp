@@ -30,8 +30,16 @@ TEST_F(AlgorithmsTest, InsertionSort) {
   // std::print("{}", input);
 }
 
-TEST_F(AlgorithmsTest, insertionSortDecreasing) {
+TEST_F(AlgorithmsTest, InsertionSortDecreasing) {
   DSA::insertionSortDecreasing(input.begin(), input.end());
   EXPECT_TRUE(std::is_sorted(input.begin(), input.end(), std::greater<>()));
   // std::print("{}", input);
+}
+
+TEST_F(AlgorithmsTest, SumBinaryNumbers) {
+  std::vector<int> numA = {1, 0, 1, 1};           // 13
+  std::vector<int> numB = {1, 1, 0, 1};           // 11
+  std::vector<int> expectedSum = {0, 0, 0, 1, 1}; // 24
+  auto result = DSA::sumBinaryNumbers(numA, numB);
+  EXPECT_EQ(result, expectedSum);
 }
