@@ -3,6 +3,7 @@
 #include <iterator>
 #include <vector>
 
+/* Section 2.1 */
 namespace DSA { // Data Structures and Algorithms
 template <typename RandomIt> void insertionSort(RandomIt begin, RandomIt end) {
   for (auto it = begin + 1; it != end; it++) {
@@ -51,5 +52,21 @@ std::vector<T> sumBinaryNumbers(const std::vector<T> numA,
   }
 
   return result;
+}
+
+// Exercise 2.2-2
+template <typename T> void selectionSort(std::vector<T> &elements) {
+  for (std::size_t i = 0; i < elements.size() - 1; ++i) {
+    std::size_t selectionIndex = i;
+    for (std::size_t j = i; j < elements.size(); ++j) {
+      if (elements[j] < elements[selectionIndex]) {
+        selectionIndex = j;
+      }
+    }
+
+    if (selectionIndex != i) {
+      std::swap(elements[i], elements[selectionIndex]);
+    }
+  }
 }
 } // namespace DSA

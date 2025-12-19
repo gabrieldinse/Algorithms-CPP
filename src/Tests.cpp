@@ -43,3 +43,9 @@ TEST_F(AlgorithmsTest, SumBinaryNumbers) {
   auto result = DSA::sumBinaryNumbers(numA, numB);
   EXPECT_EQ(result, expectedSum);
 }
+
+TEST_F(AlgorithmsTest, SelectionSort) {
+  DSA::selectionSort(input);
+  EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
+  // std::print("{}", input);
+}
