@@ -49,3 +49,9 @@ TEST_F(AlgorithmsTest, SelectionSort) {
   EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
   // std::print("{}", input);
 }
+
+TEST_F(AlgorithmsTest, MergeSort) {
+  DSA::mergeSort(input, 0, input.size() - 1);
+  EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
+  // std::print("{}", input);
+}
