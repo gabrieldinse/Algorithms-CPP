@@ -108,11 +108,11 @@ void merge(std::vector<T> &elements, std::size_t leftPos, std::size_t midPos,
   // the end.
   // The range elements[0:k] will always be sorted
   while (i < left.size() and j < right.size()) {
-    if (elements[i] < elements[j]) {
-      elements[k] = elements[i];
+    if (left[i] < right[j]) {
+      elements[k] = left[i];
       i++;
     } else {
-      elements[k] = elements[j];
+      elements[k] = right[j];
       j++;
     }
     k++;
@@ -123,13 +123,13 @@ void merge(std::vector<T> &elements, std::size_t leftPos, std::size_t midPos,
   // 2- All their elements are greather than the range elements[0:k]
   // This means left or right can be simply copied to elements[k+1:rightPos]
   while (i < left.size()) {
-    elements[k] = elements[i];
+    elements[k] = left[i];
     i++;
     k++;
   }
 
   while (j < right.size()) {
-    elements[k] = elements[j];
+    elements[k] = right[j];
     j++;
     k++;
   }
@@ -191,5 +191,31 @@ std::optional<std::size_t> binarySearch(const std::vector<T> &sortedElements,
   }
 
   return binarySearch(sortedElements, lookupValue, middlePos + 1, rightPos);
+}
+
+// Exercise 2.3-8
+template <typename T>
+bool twoSumSorting(std::vector<T> &elements, T targetSum) {
+  std::size_t leftPos = 0;
+  std::size_t rightPos = elements.size() - 1;
+  mergeSort(elements, leftPos, rightPos);
+
+  while (leftPos < rightPos) {
+    T sum = elements[leftPos] + elements[rightPos];
+    //std::cout << "Left pos: " << leftPos << "(" << elements[leftPos] << ")"
+    //          << " Right pos: " << rightPos << "(" << elements[rightPos] << ")"
+    //          << " Sum: " << sum << "\n";
+    if (sum == targetSum) {
+      return true;
+    }
+
+    if (sum < targetSum) {
+      leftPos++;
+    } else {
+      rightPos--;
+    }
+  }
+
+  return false;
 }
 } // namespace DSA

@@ -76,3 +76,18 @@ TEST_F(AlgorithmsTest, BinarySearch) {
   EXPECT_TRUE(result.has_value());
   EXPECT_EQ(input[result.value()], target);
 }
+
+TEST_F(AlgorithmsTest, TwoSumSorting) {
+  int targetSum = input[1200] + input[9000];
+  bool result = DSA::twoSumSorting(input, targetSum);
+  EXPECT_TRUE(result);
+
+  targetSum = -1; // impossible sum
+  result = DSA::twoSumSorting(input, targetSum);
+  EXPECT_FALSE(result);
+
+  int targetSum2 = input[0] + input[1];
+  ;
+  result = DSA::twoSumSorting(input, targetSum2);
+  EXPECT_TRUE(result);
+}
