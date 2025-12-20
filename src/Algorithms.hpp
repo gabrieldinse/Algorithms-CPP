@@ -171,14 +171,16 @@ void recursiveInsertionSort(std::vector<T> &elements, std::size_t rightPos) {
 
 // Exercise 2.3-6
 template <typename T>
-std::optional<std::size_t> binarySearch(const std::vector<T> sortedElements,
+std::optional<std::size_t> binarySearch(const std::vector<T> &sortedElements,
                                         T lookupValue, std::size_t leftPos,
                                         std::size_t rightPos) {
-  if (leftPos == rightPos) {
+  if (leftPos > rightPos) {
     return std::nullopt;
   }
 
-  std::size_t middlePos = (leftPos + rightPos) / 2;
+  // Calculate the middle position to avoid the overflow that could be caused by
+  // (leftPos + rightPos) / 2
+  std::size_t middlePos = (rightPos - leftPos) / 2 + leftPos;
   T middleValue = sortedElements[middlePos];
   if (middleValue == lookupValue) {
     return middlePos;
