@@ -25,7 +25,13 @@ protected:
 std::vector<int> AlgorithmsTest::originalInput;
 
 TEST_F(AlgorithmsTest, InsertionSort) {
-  DSA::insertionSort(input.begin(), input.end());
+  DSA::insertionSort(input);
+  EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
+  // std::print("{}", input);
+}
+
+TEST_F(AlgorithmsTest, InsertionSortIt) {
+  DSA::insertionSortIt(input.begin(), input.end());
   EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
   // std::print("{}", input);
 }
@@ -54,4 +60,19 @@ TEST_F(AlgorithmsTest, MergeSort) {
   DSA::mergeSort(input, 0, input.size() - 1);
   EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
   // std::print("{}", input);
+}
+
+TEST_F(AlgorithmsTest, RecursiveInsertionSort) {
+  DSA::recursiveInsertionSort(input, input.size() - 1);
+  EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
+  // std::print("{}", input);
+}
+
+TEST_F(AlgorithmsTest, BinarySearch) {
+  std::size_t targetPos = inputSize / 2;
+  int target = input[targetPos];
+  DSA::insertionSort(input);
+  auto result = DSA::binarySearch(input, target, 0, input.size() - 1);
+  EXPECT_TRUE(result.has_value());
+  EXPECT_EQ(input[result.value()], target);
 }
