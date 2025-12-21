@@ -91,3 +91,10 @@ TEST_F(AlgorithmsTest, TwoSumSorting) {
   result = DSA::twoSumSorting(input, targetSum2);
   EXPECT_TRUE(result);
 }
+
+TEST_F(AlgorithmsTest, MergeSortWithInsertionSort) {
+  const std::size_t k = 10;
+  DSA::mergeSortWithInsertionSort(input, 0, input.size() - 1, k);
+  EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
+  // std::print("{}", input);
+}

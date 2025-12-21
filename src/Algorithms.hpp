@@ -92,11 +92,11 @@ template <typename T> void selectionSort(std::vector<T> &elements) {
 
 // Section 2.3.1 - Merge sort
 template <typename T>
-void merge(std::vector<T> &elements, std::size_t leftPos, std::size_t midPos,
+void merge(std::vector<T> &elements, std::size_t leftPos, std::size_t middlePos,
            std::size_t rightPos) {
   std::vector<T> left(elements.begin() + leftPos,
-                      elements.begin() + midPos + 1);
-  std::vector<T> right(elements.begin() + midPos + 1,
+                      elements.begin() + middlePos + 1);
+  std::vector<T> right(elements.begin() + middlePos + 1,
                        elements.begin() + rightPos + 1);
 
   std::size_t i = 0;
@@ -142,11 +142,11 @@ void mergeSort(std::vector<T> &elements, std::size_t leftPos,
     return;
   }
 
-  std::size_t midPos = (leftPos + rightPos) / 2;
-  mergeSort(elements, leftPos, midPos);
-  mergeSort(elements, midPos + 1, rightPos);
+  std::size_t middlePos = (rightPos - leftPos) / 2 + leftPos;
+  mergeSort(elements, leftPos, middlePos);
+  mergeSort(elements, middlePos + 1, rightPos);
 
-  merge(elements, leftPos, midPos, rightPos);
+  merge(elements, leftPos, middlePos, rightPos);
 }
 
 // Exercise 2.3-5
@@ -202,9 +202,6 @@ bool twoSumSorting(std::vector<T> &elements, T targetSum) {
 
   while (leftPos < rightPos) {
     T sum = elements[leftPos] + elements[rightPos];
-    //std::cout << "Left pos: " << leftPos << "(" << elements[leftPos] << ")"
-    //          << " Right pos: " << rightPos << "(" << elements[rightPos] << ")"
-    //          << " Sum: " << sum << "\n";
     if (sum == targetSum) {
       return true;
     }
@@ -217,5 +214,23 @@ bool twoSumSorting(std::vector<T> &elements, T targetSum) {
   }
 
   return false;
+}
+
+// Problem 2-1
+template <typename T>
+void mergeSortWithInsertionSort(std::vector<T> &elements, std::size_t leftPos,
+                                std::size_t rightPos, std::size_t k) {
+  if (rightPos - leftPos + 1 <= k) {
+    // This insertion sort expects iterators, so we should use right + 1 (past
+    // end)
+    insertionSortIt(elements.begin() + leftPos,
+                    elements.begin() + rightPos + 1);
+  } else {
+    std::size_t middlePos = (rightPos - leftPos) / 2 + leftPos;
+    mergeSortWithInsertionSort(elements, leftPos, middlePos, k);
+    mergeSortWithInsertionSort(elements, middlePos + 1, rightPos, k);
+
+    merge(elements, leftPos, middlePos, rightPos);
+  }
 }
 } // namespace DSA
