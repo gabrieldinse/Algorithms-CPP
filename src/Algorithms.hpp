@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <iterator>
 #include <optional>
 #include <vector>
@@ -231,6 +232,17 @@ void mergeSortWithInsertionSort(std::vector<T> &elements, std::size_t leftPos,
     mergeSortWithInsertionSort(elements, middlePos + 1, rightPos, k);
 
     merge(elements, leftPos, middlePos, rightPos);
+  }
+}
+
+// Problem 2-2
+template <typename T> void bubblesort(std::vector<T> &elements) {
+  for (std::size_t i = 1; i < elements.size() - 1; i++) {
+    for (std::size_t j = elements.size() - 1; j >= i; j--) {
+      if (elements[j] < elements[j - 1]) {
+        std::swap(elements[j], elements[j - 1]);
+      }
+    }
   }
 }
 } // namespace DSA

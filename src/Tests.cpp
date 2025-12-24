@@ -98,3 +98,9 @@ TEST_F(AlgorithmsTest, MergeSortWithInsertionSort) {
   EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
   // std::print("{}", input);
 }
+
+TEST_F(AlgorithmsTest, Bubblesort) {
+  DSA::bubblesort(input);
+  EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
+  // std::print("{}", input);
+}

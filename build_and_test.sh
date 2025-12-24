@@ -6,6 +6,7 @@ clang-format -i src/*.inl 2>/dev/null
 mkdir -p build
 cd build
 cmake ..
-cmake --build .
-ctest --verbose
+if cmake --build . ; then
+	ctest --verbose
+fi
 
