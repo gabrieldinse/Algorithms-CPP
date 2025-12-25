@@ -245,4 +245,68 @@ template <typename T> void bubblesort(std::vector<T> &elements) {
     }
   }
 }
+
+// Problem 2-4.d) Count the number of inversions in an array using merge sort
+template <typename T>
+std::size_t mergeAndCountInversions(std::vector<T> &elements,
+                                    std::size_t leftPos, std::size_t middlePos,
+                                    std::size_t rightPos) {
+  std::vector<T> left(elements.begin() + leftPos,
+                      elements.begin() + middlePos + 1);
+  std::vector<T> right(elements.begin() + middlePos + 1,
+                       elements.begin() + rightPos + 1);
+
+  std::size_t i = 0;
+  std::size_t j = 0;
+  std::size_t k = leftPos;
+  std::size_t inversions = 0;
+
+  while (i < left.size() and j < right.size()) {
+    if (left[i] < right[j]) {
+      // No inversions, because left[i] is smaller than all remaining elements
+      // in right
+      elements[k] = left[i];
+      i++;
+    } else {
+      // Every remaining element in left is greater than right[j]
+      inversions += (left.size() - i);
+      elements[k] = right[j];
+      j++;
+    }
+    k++;
+  }
+
+  while (i < left.size()) {
+    // These leftovers where already counted in the first while loop
+    elements[k] = left[i];
+    i++;
+    k++;
+  }
+
+  while (j < right.size()) {
+    elements[k] = right[j];
+    j++;
+    k++;
+  }
+
+  return inversions;
+}
+
+template <typename T>
+std::size_t countInversions(std::vector<T> &elements, std::size_t leftPos,
+                            std::size_t rightPos) {
+  if (leftPos >= rightPos) {
+    return 0;
+  }
+
+  std::size_t middlePos = (rightPos - leftPos) / 2 + leftPos;
+  std::size_t inversionsLeft = countInversions(elements, leftPos, middlePos);
+  std::size_t inversionsRight =
+      countInversions(elements, middlePos + 1, rightPos);
+
+  std::size_t inversionsSplit =
+      mergeAndCountInversions(elements, leftPos, middlePos, rightPos);
+
+  return inversionsLeft + inversionsRight + inversionsSplit;
+}
 } // namespace DSA

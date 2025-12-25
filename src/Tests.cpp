@@ -104,3 +104,17 @@ TEST_F(AlgorithmsTest, Bubblesort) {
   EXPECT_TRUE(std::is_sorted(input.begin(), input.end()));
   // std::print("{}", input);
 }
+
+TEST_F(AlgorithmsTest, CountInversions) {
+  std::vector<int> testVec = {2, 3, 8, 6, 1};
+  std::size_t inversions = DSA::countInversions(testVec, 0, testVec.size() - 1);
+  EXPECT_EQ(inversions, 5);
+
+  testVec = {1, 2, 3, 4, 5};
+  inversions = DSA::countInversions(testVec, 0, testVec.size() - 1);
+  EXPECT_EQ(inversions, 0);
+
+  testVec = {5, 4, 3, 2, 1};
+  inversions = DSA::countInversions(testVec, 0, testVec.size() - 1);
+  EXPECT_EQ(inversions, 10);
+}
